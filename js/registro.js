@@ -6,7 +6,7 @@ const pass = document.getAnimations('pass');
 const formulario = document.getElementById('formRegistro')
 
 //
-formulario.addEventListener('submit', registro)
+formulario.addEventListener('submit', registro);
 
 // 
 function registro(e){
@@ -18,8 +18,29 @@ function registro(e){
     let passVal = pass.value;
 
     if(nombreVal == '' || emailVal == '' || userVal == '' || passVal == ''){
+        creaMensaje('Verifica tus campos', 'danger');
         return;
     }
-    console.log('Datos validados');
+    const usuario = {
+        nombre: nombreVal,
+        email: emailVal,
+        user: userVal,
+        pass: passVal
+    }
+    localStorage.setItem('usuario', JSON.stringify(usuario));
 
+        nombre.value= '';
+        email.value= '';
+        user.value='';
+        pass.value='';
+
+    creaMensaje('Usuario Registrado', 'success');
+}
+
+function creaMensaje(texto, tipo){
+    const nuevoElemeto=document.createElement('div');
+    nuevoElemeto.innerText = texto;
+    nuevoElemeto.classList.add('alert', 'alert-' + tipo);
+    const divMensaje = document.getElementById('mensaje');
+    divMensaje.appendChild(nuevoElemeto);
 }
